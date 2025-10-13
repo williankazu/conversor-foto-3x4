@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Fotos 3x4</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="has-text-centered" style="padding-top: 20px;">
+            <h1 class="title has-text-white is-size-2-desktop is-size-3-mobile">
+                📸 Conversor de Fotos 3x4
+            </h1>
+            <p class="subtitle has-text-white">
+                Faça upload, ajuste e imprima suas fotos
+            </p>
+        </div>
+
+        <div class="card main-card">
+            <div class="card-content">
+                <div id="upload-section">
+                    <div class="upload-area" id="upload-area">
+                        <div class="icon-upload">📁</div>
+                        <p class="is-size-5 has-text-weight-semibold">
+                            Clique ou arraste uma foto aqui
+                        </p>
+                        <p class="is-size-7 has-text-grey">
+                            Formatos aceitos: JPG, PNG, WEBP
+                        </p>
+                        <input type="file" id="file-input" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+
+                <div id="editor-section" style="display: none;">
+                    <div class="has-text-centered mb-4">
+                        <h2 class="title is-4">Ajuste sua foto</h2>
+                        <p class="subtitle is-6">
+                            Arraste para posicionar e use o zoom
+                        </p>
+                    </div>
+
+                    <div id="preview-container">
+                        <canvas id="crop-canvas"></canvas>
+                        <img id="preview-image" alt="Preview">
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Zoom</label>
+                        <input type="range" class="slider is-fullwidth" id="zoom-slider" 
+                               min="100" max="300" value="100" step="1">
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Posição Vertical (%)</label>
+                        <input type="range" class="slider is-fullwidth" id="position-slider" 
+                               min="0" max="100" value="50" step="1">
+                    </div>
+
+                    <div class="buttons is-centered mt-5">
+                        <button class="button is-link is-medium" id="confirm-btn">
+                            ✓ Confirmar Foto
+                        </button>
+                        <button class="button is-light is-medium" id="cancel-btn">
+                            ✕ Cancelar
+                        </button>
+                    </div>
+                </div>
+
+                <div id="result-section" style="display: none;">
+                    <div class="controls">
+                        <div class="columns is-mobile is-multiline">
+                            <div class="column is-half-mobile is-one-third-tablet">
+                                <div class="field">
+                                    <label class="label">Quantidade de Fotos</label>
+                                    <div class="control">
+                                        <input class="input" type="number" id="photo-count" 
+                                               value="6" min="1" max="50">
+                                    </div>
+                                    <p class="help is-info">Máx. 30 fotos por página A4</p>
+                                </div>
+                            </div>
+                            <div class="column is-half-mobile is-one-third-tablet">
+                                <div class="field">
+                                    <label class="label">&nbsp;</label>
+                                    <button class="button is-info is-fullwidth" id="update-grid">
+                                        🔄 Atualizar
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="column is-full-mobile is-one-third-tablet">
+                                <div class="field">
+                                    <label class="label">&nbsp;</label>
+                                    <div class="buttons">
+                                        <button class="button is-success" id="print-btn">
+                                            🖨️ Imprimir
+                                        </button>
+                                        <button class="button is-primary" id="download-btn">
+                                            💾 Baixar
+                                        </button>
+                                        <button class="button is-light" id="new-photo-btn">
+                                            📷 Nova Foto
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="photo-grid" id="photo-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="print-page" id="print-container">
+        <!-- Páginas serão geradas dinamicamente aqui -->
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>

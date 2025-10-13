@@ -1,0 +1,188 @@
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .main-card {
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .upload-area {
+            border: 3px dashed #dbdbdb;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .upload-area:hover {
+            border-color: #667eea;
+            background: #f0f0f0;
+        }
+
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: #e8eaf6;
+        }
+
+        #preview-container {
+            position: relative;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        #preview-image {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .crop-container {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .crop-overlay {
+            position: absolute;
+            border: 2px solid #667eea;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+            cursor: move;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .photo-item {
+            aspect-ratio: 3/4;
+            border: 1px solid #dbdbdb;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .print-page {
+            display: none;
+        }
+
+        .print-page-item {
+            page-break-after: always;
+            width: 210mm;
+            height: 297mm;
+            padding: 10mm;
+            box-sizing: border-box;
+        }
+
+        .print-page-item:last-child {
+            page-break-after: auto;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            body * {
+                visibility: hidden;
+            }
+            
+            .print-page, .print-page * {
+                visibility: visible;
+            }
+            
+            .print-page {
+                position: absolute;
+                left: 0;
+                top: 0;
+                display: block !important;
+            }
+
+            .print-page-item {
+                page-break-after: always;
+            }
+
+            .print-page-item:last-child {
+                page-break-after: auto;
+            }
+            
+            .print-grid {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 3mm;
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                background: white;
+                box-shadow: none;
+            }
+            
+            .print-grid .photo-item {
+                width: 30mm;
+                height: 40mm;
+                border: 1px solid #ddd;
+                border-radius: 0;
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+            
+            .print-grid .photo-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .photo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 10px;
+                padding: 15px;
+            }
+            
+            .upload-area {
+                padding: 20px;
+            }
+        }
+
+        .icon-upload {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        canvas {
+            display: none;
+        }
+    

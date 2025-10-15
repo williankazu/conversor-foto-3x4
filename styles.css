@@ -36,14 +36,20 @@
 
         #preview-container {
             position: relative;
-            max-width: 300px;
+            max-width: 400px;
             margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         #preview-image {
-            width: 100%;
+            max-width: 100%;
+            max-height: 500px;
+            width: auto;
             height: auto;
             border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .crop-container {
@@ -68,10 +74,12 @@
             background: white;
             border-radius: 10px;
             margin-top: 20px;
+            justify-items: center;
         }
 
         .photo-item {
-            aspect-ratio: 3/4;
+            width: 100%;
+            max-width: 200px;
             border: 1px solid #dbdbdb;
             border-radius: 5px;
             overflow: hidden;
@@ -138,23 +146,23 @@
             
             .print-grid {
                 display: grid;
-                grid-template-columns: repeat(5, 1fr);
                 gap: 3mm;
                 width: 100%;
-                height: 100%;
+                height: auto;
                 padding: 0;
                 margin: 0;
                 background: white;
                 box-shadow: none;
+                justify-items: center;
+                align-items: start;
             }
             
             .print-grid .photo-item {
-                width: 30mm;
-                height: 40mm;
                 border: 1px solid #ddd;
                 border-radius: 0;
                 box-shadow: none;
                 page-break-inside: avoid;
+                aspect-ratio: auto;
             }
             
             .print-grid .photo-item img {
@@ -184,5 +192,44 @@
 
         canvas {
             display: none;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        #tolerance-field {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        #custom-size-fields {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px dashed #3298dc;
+        }
+
+        #current-size-display {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .select select {
+            cursor: pointer;
         }
     

@@ -11,10 +11,10 @@
     <div class="container">
         <div class="has-text-centered" style="padding-top: 20px;">
             <h1 class="title has-text-white is-size-2-desktop is-size-3-mobile">
-                📸 Conversor de Fotos 3x4
+                📸 Conversor de Fotos para Documentos
             </h1>
             <p class="subtitle has-text-white">
-                Faça upload, ajuste e imprima suas fotos
+                3x4, 5x7 e tamanhos personalizados - Ajuste, remova fundo e imprima
             </p>
         </div>
 
@@ -37,13 +37,86 @@
                     <div class="has-text-centered mb-4">
                         <h2 class="title is-4">Ajuste sua foto</h2>
                         <p class="subtitle is-6">
-                            Arraste para posicionar e use o zoom
+                            Escolha o tamanho e posicione sua foto
                         </p>
+                    </div>
+
+                    <div class="columns is-mobile mb-4">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">📐 Tamanho da Foto</label>
+                                <div class="control">
+                                    <div class="select is-fullwidth is-info">
+                                        <select id="photo-size-select">
+                                            <option value="3x4" selected>3x4 cm (Padrão Documentos)</option>
+                                            <option value="5x7">5x7 cm (Retrato Maior)</option>
+                                            <option value="2x2">2x2 cm (Passaporte/Visto)</option>
+                                            <option value="10x15">10x15 cm (Foto Grande)</option>
+                                            <option value="custom">✏️ Personalizado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="custom-size-fields" style="display: none;">
+                        <div class="has-text-centered mb-3">
+                            <span class="tag is-info is-medium">✏️ Tamanho Personalizado</span>
+                        </div>
+                        <div class="columns is-mobile">
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Largura (cm)</label>
+                                    <div class="control">
+                                        <input class="input" type="number" id="custom-width" 
+                                               value="3" min="1" max="20" step="0.5">
+                                    </div>
+                                    <p class="help">1 a 20 cm</p>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Altura (cm)</label>
+                                    <div class="control">
+                                        <input class="input" type="number" id="custom-height" 
+                                               value="4" min="1" max="30" step="0.5">
+                                    </div>
+                                    <p class="help">1 a 30 cm</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="button is-info is-small is-fullwidth mb-4" id="apply-custom-size">
+                            ✓ Aplicar Tamanho Personalizado
+                        </button>
                     </div>
 
                     <div id="preview-container">
                         <canvas id="crop-canvas"></canvas>
                         <img id="preview-image" alt="Preview">
+                        <p class="has-text-centered mt-2 has-text-grey" id="current-size-display">
+                            <strong>Tamanho: 3x4 cm</strong>
+                        </p>
+                    </div>
+
+                    <div class="field">
+                        <label class="checkbox">
+                            <input type="checkbox" id="remove-bg-toggle">
+                            <strong> Remover fundo (deixar branco)</strong>
+                        </label>
+                        <p class="help">Ative para tentar remover o fundo da foto automaticamente</p>
+                        <div id="processing-indicator" style="display: none; margin-top: 10px;">
+                            <span class="tag is-info is-light">
+                                ⚙️ Processando imagem...
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field" id="tolerance-field" style="display: none;">
+                        <label class="label">Sensibilidade de Remoção</label>
+                        <input type="range" class="slider is-fullwidth" id="tolerance-slider" 
+                               min="20" max="120" value="50" step="5">
+                        <p class="help">Ajuste para capturar melhor o fundo. Valores maiores removem mais área.</p>
                     </div>
 
                     <div class="field">
@@ -69,6 +142,11 @@
                 </div>
 
                 <div id="result-section" style="display: none;">
+                    <div class="notification is-info is-light">
+                        <strong>📐 Tamanho:</strong> <span id="result-size-display">3x4 cm</span> | 
+                        <strong>📊 Fotos por página A4:</strong> <span id="photos-per-page-display">30</span>
+                    </div>
+                    
                     <div class="controls">
                         <div class="columns is-mobile is-multiline">
                             <div class="column is-half-mobile is-one-third-tablet">
